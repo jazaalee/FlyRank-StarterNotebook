@@ -1,1 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Well-Ranked Pages Still Go Unclicked — Jaza Ali</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F3EC;
+    --ink:#181B20;
+    --ink-soft:#4A4E57;
+    --teal:#3E6B63;
+    --teal-soft:#DCE8E4;
+    --rule:#D8D2C2;
+    --warn:#8C4A3A;
+    --card:#FFFEFA;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.65;
+  }
+  a{color:var(--teal);}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px;}
 
+  header.hero{
+    padding:96px 0 64px;
+    border-bottom:1px solid var(--rule);
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--teal);
+    margin-bottom:18px;
+  }
+  h1{
+    font-family:'Source Serif 4',serif;
+    font-weight:700;
+    font-size:clamp(32px,5vw,48px);
+    line-height:1.15;
+    margin:0 0 20px;
+  }
+  .byline{
+    font-family:'JetBrains Mono',monospace;
+    font-size:14px;
+    color:var(--ink-soft);
+  }
+
+  section{padding:56px 0;border-bottom:1px solid var(--rule);}
+  section:last-of-type{border-bottom:none;}
+  h2{
+    font-family:'Source Serif 4',serif;
+    font-weight:600;
+    font-size:26px;
+    margin:0 0 8px;
+  }
+  .section-num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+    letter-spacing:0.06em;
+    margin-bottom:6px;
+  }
+  h3{font-family:'Source Serif 4',serif;font-size:19px;font-weight:600;margin:28px 0 8px;}
+  p{margin:0 0 16px;font-size:16px;color:var(--ink);}
+  .lede{
+    font-family:'Source Serif 4',serif;
+    font-style:italic;
+    font-size:19px;
+    color:var(--ink-soft);
+    margin-bottom:0;
+  }
+
+  .metric-row{
+    display:flex;gap:14px;flex-wrap:wrap;
+    margin:20px 0 8px;
+  }
+  .metric{
+    background:var(--card);
+    border:1px solid var(--rule);
+    border-radius:4px;
+    padding:14px 18px;
+    flex:1;
+    min-width:150px;
+  }
+  .metric .num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:22px;
+    font-weight:600;
+    color:var(--teal);
+    display:block;
+  }
+  .metric .label{
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+
+  table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px;}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--rule);}
+  th{font-family:'JetBrains Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-soft);}
+  td.mono, th.mono{font-family:'JetBrains Mono',monospace;}
+  tr.highlight td{color:var(--teal);font-weight:600;}
+
+  figure{margin:28px 0;}
+  figure img{
+    width:100%;
+    border:1px solid var(--rule);
+    border-radius:4px;
+    display:block;
+  }
+  figcaption{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:8px;
+    font-family:'JetBrains Mono',monospace;
+  }
+
+  .callout{
+    background:var(--teal-soft);
+    border-left:3px solid var(--teal);
+    padding:16px 20px;
+    border-radius:0 4px 4px 0;
+    margin:20px 0;
+  }
+  .callout p{margin:0;}
+  .callout.warn{
+    background:#F1E6E2;
+    border-left-color:var(--warn);
+  }
+
+  ol.actions{padding-left:20px;}
+  ol.actions li{margin-bottom:14px;}
+  ol.actions strong{font-family:'JetBrains Mono',monospace;color:var(--teal);}
+
+  ul.limits li{margin-bottom:10px;}
+
+  .repro-links a{
+    display:block;
+    padding:10px 0;
+    border-bottom:1px dashed var(--rule);
+    font-family:'JetBrains Mono',monospace;
+    font-size:14px;
+    text-decoration:none;
+  }
+  .repro-links a:hover{text-decoration:underline;}
+
+  footer{
+    padding:48px 0 80px;
+    font-size:14px;
+    color:var(--ink-soft);
+  }
+  footer a{color:var(--teal);}
+
+  code{
+    font-family:'JetBrains Mono',monospace;
+    background:var(--teal-soft);
+    padding:1px 6px;
+    border-radius:3px;
+    font-size:0.9em;
+  }
+
+  @media (prefers-reduced-motion: no-preference){
+    section{opacity:0;transform:translateY(12px);animation:rise 0.6s ease forwards;}
+    section:nth-of-type(1){animation-delay:0.02s;}
+  }
+  @keyframes rise{to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+
+<header class="hero wrap">
+  <div class="eyebrow">Search Intelligence Capstone — Lane 2</div>
+  <h1>Why Well-Ranked Pages Still Go Unclicked</h1>
+  <p class="byline">Syeda Jaza Ali · FlyRank ML Internship 2026</p>
+</header>
+
+<section class="wrap" id="abstract">
+  <div class="section-num">Abstract</div>
+  <p class="lede">A page can rank well and still fail to earn its clicks. This paper asks whether that gap — CTR falling short of what a page's own search position typically earns — is worth flagging for review, and whether a machine-learned model can catch it better than a transparent hand-written rule.</p>
+  <p>Using one month of the FlyRank search-performance warehouse, I built a baseline rule comparing each page's actual click-through rate to the average CTR of pages ranking at the same position, then tested a logistic regression model against it on a client-holdout split. The rule scored 0.577 ROC AUC; the model scored 0.506. The simple, explainable rule won. The result is reported here as-is, since an honest negative is still a useful finding, and it shapes the ranked recommendations that follow.</p>
+</section>
+
+<section class="wrap" id="intro">
+  <div class="section-num">01 — Introduction</div>
+  <h2>The decision this supports</h2>
+  <p>Content teams don't have time to manually review every page in a client's inventory. What they need is a short, defensible list: which pages to check first. This work targets one specific, checkable pattern within that larger question — pages that rank decently but aren't converting that visibility into clicks, a sign the title or meta description isn't doing its job even though the ranking itself is fine.</p>
+  <p>Getting this wrong is not symmetric. Flagging a healthy page wastes a few minutes of review. Missing a genuinely underperforming page means it keeps losing clicks, quietly, with nobody looking.</p>
+</section>
+
+<section class="wrap" id="data">
+  <div class="section-num">02 — Data</div>
+  <h2>Release, tables, and window</h2>
+  <p>This analysis uses the FlyRank internship warehouse release on Hugging Face (<code>FlyRank/internship-warehouse</code>), specifically <code>fact_content_daily_performance</code>. The date window is March 2026 — a mid-panel month, chosen deliberately over the release's final month, which is reserved as an unseen outcome window rather than something to build label logic against.</p>
+
+  <div class="metric-row">
+    <div class="metric"><span class="num">9.84M</span><span class="label">rows in March slice</span></div>
+    <div class="metric"><span class="num">152K</span><span class="label">pages with visibility</span></div>
+    <div class="metric"><span class="num">0</span><span class="label">grain violations found</span></div>
+  </div>
+
+  <h3>What was excluded, and why</h3>
+  <p><code>fact_content_query_90d</code> (the query-level breakdown table) was excluded — this question is about how a page performs overall, not which specific search terms bring it traffic, and joining that table in would add a leakage surface not needed here. No client names, domains, raw URLs, or private queries appear anywhere in this work — only anonymized page and client hashes provided by the release itself.</p>
+</section>
+
+<section class="wrap" id="methodology">
+  <div class="section-num">03 — Methodology</div>
+  <h2>Rule, label, and validation</h2>
+
+  <h3>Label (proxy)</h3>
+  <p>Whether a page's impressions dropped from the first half of March to the second half — a within-month proxy, not a verified future outcome, since this analysis loads a single month.</p>
+
+  <h3>Baseline rule</h3>
+  <p>For each page, an "expected CTR" is calculated from other pages ranking in the same position bucket (top 10 / 11–20 / 21+). The gap between a page's actual CTR and that expectation, multiplied by its traffic volume, becomes its score. The reason code is <code>ctr_below_position_expectation</code>; the recommended action is <code>fix_title_meta</code>.</p>
+
+  <div class="callout">
+    <p><strong>Signal check — CONFIRMED:</strong> CTR falls cleanly as position worsens (top 10: 0.586% avg CTR → 11–20: 0.336% → 21+: 0.205%, n = 89,867 / 24,888 / 37,226), confirming position is a reliable predictor of expected clicks and safe to build a rule against.</p>
+  </div>
+
+  <h3>Validation design</h3>
+  <p>A client-holdout split (grouped by <code>client_hash_id</code>, not row) was used so no single client's pages appear in both train and test — pages from the same client behave similarly, and a random row split would let a model partly memorize client-level patterns instead of learning generalizable signal.</p>
+
+  <h3>Leakage check</h3>
+  <p>All features (<code>impressions</code>, <code>avg_position</code>, <code>CTR</code>, <code>CTR gap</code>) are computed strictly from the first half of March. The label is computed from the second half. No feature used in training touches second-half data — confirmed programmatically before modeling.</p>
+</section>
+
+<section class="wrap" id="results">
+  <div class="section-num">04 — Results</div>
+  <h2>Baseline vs. model, same split</h2>
+  <p>Both methods were scored on the identical held-out client group (0 client overlap, 14,520 pages across 11 clients, base decline rate 45.7%).</p>
+
+  <table>
+    <tr><th>Method</th><th class="mono">ROC AUC (held-out)</th></tr>
+    <tr class="highlight"><td>Baseline — CTR below position expectation</td><td class="mono">0.577</td></tr>
+    <tr><td>Logistic regression</td><td class="mono">0.506</td></tr>
+    <tr><td>Random guessing</td><td class="mono">0.500</td></tr>
+  </table>
+
+  <figure>
+    <img src="charts/results_baseline_vs_model.png" alt="Bar chart comparing baseline and logistic regression ROC AUC on held-out clients">
+    <figcaption>Fig. 1 — Baseline vs. model, held-out client performance.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="charts/ctr_by_position.png" alt="Bar chart of average CTR by search position bucket">
+    <figcaption>Fig. 2 — Average CTR by position bucket, the pattern the baseline rule is built on.</figcaption>
+  </figure>
+
+  <p>The transparent rule outperformed the model trained on the same four signals. This is reported directly rather than reframed, a simple rule beating a model is itself a finding worth knowing before deploying either one.</p>
+</section>
+
+<section class="wrap" id="limitations">
+  <div class="section-num">05 — Limitations &amp; honest framing</div>
+  <h2>What this can and cannot claim</h2>
+
+  <p><strong>What it can say:</strong> the baseline shows real, observed separation between pages likely to decline and pages likely to stay stable, on data it never trained on. This is decision support — a ranked shortlist for a human reviewer — not a certainty about any one page.</p>
+
+  <div class="callout warn">
+    <p><strong>What it cannot say:</strong> this work does not explain or predict Google's ranking algorithm, and it does not prove that fixing a flagged page's title will improve its performance — that would require an actual intervention and a before/after comparison, not this observational analysis. The decline label is a within-month proxy, not a verified outcome.</p>
+  </div>
+
+  <ul class="limits">
+    <li>Single mid-panel month (March 2026); results may not generalize across seasons or client mixes.</li>
+    <li>GA4-sourced signals (sessions, engagement) are far sparser than GSC-sourced signals in this warehouse and were not used here for that reason.</li>
+    <li>The held-out test set spans only 11 unique clients — a small base to generalize confidently from.</li>
+    <li>The logistic regression's underperformance suggests the current feature set doesn't give a linear model enough to work with — not that ML can't help here, only that a stronger model or explicit interaction features are needed first.</li>
+  </ul>
+</section>
+
+<section class="wrap" id="recommendations">
+  <div class="section-num">06 — Ranked recommendations</div>
+  <h2>The action playbook</h2>
+  <ol class="actions">
+    <li><strong>fix_title_meta</strong> — for pages ranking top 20 with CTR meaningfully below their position's expectation, review and rewrite the title/meta first. Cheapest fix, targets the exact measured gap.</li>
+    <li><strong>prioritize by score</strong> — review in score order, not flag order; the score already weights CTR gap by traffic, so a small gap on a high-traffic page outranks a large gap nobody sees.</li>
+    <li><strong>sanity-check before acting</strong> — rule out recent launches, branded/navigational queries, and content cannibalization before rewriting anything.</li>
+    <li><strong>treat this as triage, not verdict</strong> — the output says "review next," not "broken." A human confirms before changing anything.</li>
+    <li><strong>hold the model back</strong> — don't replace the rule with the current model; revisit once interaction features or a non-linear model close the gap shown in Results.</li>
+  </ol>
+</section>
+
+<section class="wrap" id="reproducibility">
+  <div class="section-num">07 — Reproducibility</div>
+  <h2>Notebooks and repo</h2>
+  <p>Every step in this paper traces back to an executed notebook in the project repository:</p>
+  <div class="repro-links">
+    <a href="https://github.com/jazaalee/FlyRank-StarterNotebook/blob/main/work/notebooks/w01_research_question.ipynb">w01_research_question.ipynb — lane choice and framing</a>
+    <a href="https://github.com/jazaalee/FlyRank-StarterNotebook/blob/main/work/notebooks/w02_ml_task_framing.ipynb">w02_ml_task_framing.ipynb — task type, target, metric</a>
+    <a href="https://github.com/jazaalee/FlyRank-StarterNotebook/blob/main/work/notebooks/w03_data_contract.ipynb">w03_data_contract.ipynb — data contract and verification queries</a>
+    <a href="https://github.com/jazaalee/FlyRank-StarterNotebook/blob/main/work/notebooks/w04_baseline_score.ipynb">w04_baseline_score.ipynb — baseline rule and top-10 review</a>
+    <a href="https://github.com/jazaalee/FlyRank-StarterNotebook/blob/main/work/notebooks/capstone.ipynb">capstone.ipynb — full methodology, validation, and results</a>
+    <a href="https://github.com/jazaalee/FlyRank-StarterNotebook">Full repository</a>
+  </div>
+</section>
+
+<footer class="wrap">
+  <p>Built on the FlyRank ML Internship dataset — <a href="https://flyrank.ai" target="_blank" rel="noopener">flyrank.ai</a>.</p>
+  <p>Syeda Jaza Ali · Electrical Engineering, UET Lahore · FlyRank ML Internship 2026</p>
+</footer>
+
+</body>
+</html>
